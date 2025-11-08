@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - TechRK Software Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0066FF;
+            --secondary-color: #00C4B4;
+            --highlight-color: #FFD700;
+            --bg-dark: #0B1120;
+            --bg-light: #F8FAFF;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-color: #E2E8F0;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .techrk-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .techrk-header.scrolled {
+            background-color: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+
+        .techrk-navbar-brand {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--text-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .techrk-navbar-brand span {
+            color: var(--primary-color);
+        }
+
+        .techrk-navbar-nav .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .techrk-navbar-nav .nav-link:hover,
+        .techrk-navbar-nav .nav-link.active {
+            color: var(--highlight-color) !important;
+        }
+
+        .techrk-navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .techrk-navbar-nav .nav-link:hover::after,
+        .techrk-navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Improved Navbar Toggle - Hidden on desktop by default */
+        .techrk-navbar-toggler {
+            border: none;
+            color: var(--text-color);
+            width: 30px;
+            height: 20px;
+            position: relative;
+            padding: 0;
+            background: transparent;
+            display: none; /* Hidden by default */
+        }
+
+        .techrk-navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .techrk-navbar-toggler span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--text-color);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .techrk-navbar-toggler span:nth-child(1) {
+            top: 0px;
+        }
+
+        .techrk-navbar-toggler span:nth-child(2) {
+            top: 8px;
+        }
+
+        .techrk-navbar-toggler span:nth-child(3) {
+            top: 16px;
+        }
+
+        .techrk-navbar-toggler[aria-expanded="true"] span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .techrk-navbar-toggler[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+            left: -30px;
+        }
+
+        .techrk-navbar-toggler[aria-expanded="true"] span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Hero Section - Portfolio */
+        .techrk-portfolio-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.3), rgba(0, 196, 180, 0.3));
+        }
+
+        .techrk-portfolio-hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 4rem 1rem;
+        }
+
+        .techrk-portfolio-hero-title {
+            font-family: var(--font-primary);
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .techrk-portfolio-hero-subtitle {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        .techrk-section {
+            padding: 6rem 0;
+        }
+
+        .techrk-section-title {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .techrk-section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Filter Buttons */
+        .techrk-filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .techrk-filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .techrk-filter-btn:hover,
+        .techrk-filter-btn.active {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 0 15px var(--primary-color);
+            border-color: transparent;
+        }
+
+        /* Portfolio Grid */
+        .techrk-portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .techrk-portfolio-item {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+            height: 300px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .techrk-portfolio-item:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0, 102, 255, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .techrk-portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .techrk-portfolio-item:hover .techrk-portfolio-img {
+            transform: scale(1.05);
+        }
+
+        .techrk-portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(11, 17, 32, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .techrk-portfolio-item:hover .techrk-portfolio-overlay {
+            opacity: 1;
+        }
+
+        .techrk-portfolio-category {
+            font-size: 0.9rem;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .techrk-portfolio-name {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .techrk-portfolio-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Modal Styles */
+        .techrk-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 17, 32, 0.95);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .techrk-modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            max-width: 900px;
+            margin: 5% auto;
+            padding: 3rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+            animation: modalFadeIn 0.5s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .techrk-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .techrk-modal-close:hover {
+            color: var(--highlight-color);
+            transform: rotate(90deg);
+        }
+
+        .techrk-modal-img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .techrk-modal-title {
+            font-family: var(--font-primary);
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+
+        .techrk-modal-category {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .techrk-modal-desc {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .techrk-modal-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .techrk-modal-tool {
+            background: rgba(0, 102, 255, 0.2);
+            border: 1px solid var(--primary-color);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* Client Logo Strip */
+        .techrk-clients-section {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 4rem 0;
+        }
+
+        .techrk-clients-title {
+            font-family: var(--font-primary);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .techrk-clients-strip {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            padding: 1.5rem 0;
+        }
+
+        .techrk-clients-track {
+            display: flex;
+            animation: scroll 30s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .techrk-client-logo {
+            flex: 0 0 auto;
+            margin: 0 2rem;
+            filter: grayscale(1) brightness(0.8);
+            transition: all 0.3s ease;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .techrk-client-logo:hover {
+            filter: grayscale(0) brightness(1);
+            transform: scale(1.1);
+        }
+
+        .techrk-client-logo img {
+            max-height: 100%;
+            max-width: 150px;
+        }
+
+        /* CTA Section */
+        .techrk-cta-section {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 196, 180, 0.2));
+            border-radius: 30px;
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .techrk-cta-title {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .techrk-cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .techrk-btn-neon {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--text-color);
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .techrk-btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .techrk-btn-neon:hover {
+            color: white;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .techrk-btn-neon:hover::before {
+            opacity: 1;
+        }
+
+        /* Footer Styles */
+        .techrk-footer {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 196, 180, 0.1));
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0 1rem;
+            margin-top: auto;
+        }
+
+        .techrk-footer-section h4 {
+            font-family: var(--font-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--highlight-color);
+        }
+
+        .techrk-footer-section p, .techrk-footer-section a {
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .techrk-footer-section a:hover {
+            color: var(--highlight-color);
+        }
+
+        .techrk-social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .techrk-social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .techrk-social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .techrk-footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), transparent);
+            margin: 2rem 0 1.5rem;
+            box-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+        }
+
+        .techrk-copyright {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 991.98px) {
+            .techrk-navbar-toggler {
+                display: block; /* Show toggle on mobile/tablet */
+            }
+
+            .techrk-navbar-collapse {
+                background-color: rgba(11, 17, 32, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+                border: 1px solid var(--glass-border);
+            }
+
+            .techrk-portfolio-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .techrk-portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .techrk-portfolio-hero-title {
+                font-size: 2rem;
+            }
+
+            .techrk-section-title {
+                font-size: 2rem;
+            }
+
+            .techrk-cta-title {
+                font-size: 1.8rem;
+            }
+
+            .techrk-portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .techrk-filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .techrk-filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="techrk-header" id="techrkMainHeader">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="techrk-navbar-brand" href="#">
+                    <i class="fas fa-code me-2"></i>Tech<span>RK</span>
+                </a>
+                <!-- Toggle button - hidden on desktop, visible on mobile -->
+                <button class="techrk-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#techrkNavbarNav" aria-controls="techrkNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="collapse navbar-collapse" id="techrkNavbarNav">
+                    <ul class="navbar-nav ms-auto techrk-navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="portfolio.html">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="careers.html">Careers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="techrk-portfolio-hero">
+            <div class="container">
+                <div class="techrk-portfolio-hero-content">
+                    <h1 class="techrk-portfolio-hero-title">Our Work — Delivering Impact Through Technology</h1>
+                    <p class="techrk-portfolio-hero-subtitle">Explore our portfolio of innovative solutions that have transformed businesses across industries</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="techrk-section">
+            <div class="container">
+                <h2 class="techrk-section-title">Featured Projects</h2>
+                <p class="techrk-section-subtitle">Discover how we've helped businesses achieve their goals through cutting-edge technology solutions</p>
+                
+                <!-- Filter Buttons -->
+                <div class="techrk-filter-buttons">
+                    <button class="techrk-filter-btn active" data-filter="all">All Projects</button>
+                    <button class="techrk-filter-btn" data-filter="web">Web Development</button>
+                    <button class="techrk-filter-btn" data-filter="app">App Development</button>
+                    <button class="techrk-filter-btn" data-filter="ai">AI Solutions</button>
+                    <button class="techrk-filter-btn" data-filter="cloud">Cloud Solutions</button>
+                </div>
+                
+                <!-- Portfolio Grid -->
+                <div class="techrk-portfolio-grid">
+                    <!-- Project 1 -->
+                    <div class="techrk-portfolio-item" data-category="web">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="E-commerce Platform" class="techrk-portfolio-img">
+                        <div class="techrk-portfolio-overlay">
+                            <span class="techrk-portfolio-category">Web Development</span>
+                            <h3 class="techrk-portfolio-name">Nexus E-commerce Platform</h3>
+                            <p class="techrk-portfolio-desc">A comprehensive online shopping platform with AI-powered recommendations</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="techrk-portfolio-item" data-category="app">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Health & Fitness App" class="techrk-portfolio-img">
+                        <div class="techrk-portfolio-overlay">
+                            <span class="techrk-portfolio-category">App Development</span>
+                            <h3 class="techrk-portfolio-name">FitTrack Pro</h3>
+                            <p class="techrk-portfolio-desc">A fitness tracking app with personalized workout plans and progress analytics</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="techrk-portfolio-item" data-category="ai">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="AI Analytics Dashboard" class="techrk-portfolio-img">
+                        <div class="techrk-portfolio-overlay">
+                            <span class="techrk-portfolio-category">AI Solutions</span>
+                            <h3 class="techrk-portfolio-name">InsightAI Analytics</h3>
+                            <p class="techrk-portfolio-desc">Machine learning platform for predictive analytics and business intelligence</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="techrk-portfolio-item" data-category="cloud">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cloud Migration" class="techrk-portfolio-img">
+                        <div class="techrk-portfolio-overlay">
+                            <span class="techrk-portfolio-category">Cloud Solutions</span>
+                            <h3 class="techrk-portfolio-name">Global Finance Cloud Migration</h3>
+                            <p class="techrk-portfolio-desc">Secure migration of financial systems to cloud infrastructure with 99.9% uptime</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 -->
+                    <div class="techrk-portfolio-item" data-category="web">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Corporate Website" class="techrk-portfolio-img">
+                        <div class="techrk-portfolio-overlay">
+                            <span class="techrk-portfolio-category">Web Development</span>
+                            <h3 class="techrk-portfolio-name">InnovateCorp Website</h3>
+                            <p class="techrk-portfolio-desc">Modern corporate website with interactive elements and seamless user experience</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -->
+                    <div class="techrk-portfolio-item" data-category="ai">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Chatbot Solution" class="techrk-portfolio-img">
+                        <div class="techrk-portfolio-overlay">
+                            <span class="techrk-portfolio-category">AI Solutions</span>
+                            <h3 class="techrk-portfolio-name">SmartSupport AI Chatbot</h3>
+                            <p class="techrk-portfolio-desc">Natural language processing chatbot for customer service automation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client Logo Strip -->
+        <section class="techrk-clients-section">
+            <div class="container">
+                <h3 class="techrk-clients-title">Trusted by Industry Leaders</h3>
+                <div class="techrk-clients-strip">
+                    <div class="techrk-clients-track">
+                        <!-- Client logos would go here -->
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-building fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-university fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-heartbeat fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-graduation-cap fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-plane fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-shopping-cart fa-3x"></i>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-building fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-university fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-heartbeat fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-graduation-cap fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-plane fa-3x"></i>
+                        </div>
+                        <div class="techrk-client-logo">
+                            <i class="fas fa-shopping-cart fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="techrk-section">
+            <div class="container">
+                <div class="techrk-cta-section">
+                    <h2 class="techrk-cta-title">Want to work with us? Let's build together!</h2>
+                    <p class="techrk-cta-subtitle">Ready to transform your business with innovative technology solutions? Contact us today to discuss your project.</p>
+                    <button class="btn techrk-btn-neon btn-lg">Start Your Project</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div class="techrk-modal" id="projectModal">
+        <div class="techrk-modal-content">
+            <button class="techrk-modal-close" id="modalClose">&times;</button>
+            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Project Image" class="techrk-modal-img">
+            <h2 class="techrk-modal-title">Nexus E-commerce Platform</h2>
+            <p class="techrk-modal-category">Web Development</p>
+            <p class="techrk-modal-desc">
+                A comprehensive e-commerce platform built with modern technologies to provide a seamless shopping experience. 
+                The platform includes AI-powered product recommendations, advanced search functionality, secure payment processing, 
+                and a responsive design that works perfectly across all devices. Our solution helped the client increase online sales by 45% 
+                within the first three months of launch.
+            </p>
+            <h4>Technologies Used</h4>
+            <div class="techrk-modal-tools">
+                <span class="techrk-modal-tool">React</span>
+                <span class="techrk-modal-tool">Node.js</span>
+                <span class="techrk-modal-tool">MongoDB</span>
+                <span class="techrk-modal-tool">AWS</span>
+                <span class="techrk-modal-tool">Stripe API</span>
+                <span class="techrk-modal-tool">TensorFlow</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="techrk-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>About TechRK</h4>
+                        <p>TechRK Software Solutions is a leading technology company specializing in innovative software development, digital transformation, and IT consulting services.</p>
+                        <p>We help businesses leverage technology to achieve their goals and stay ahead in the digital age.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="services.html">Services</a>
+                        <a href="portfolio.html">Portfolio</a>
+                        <a href="careers.html">Careers</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>Contact Info</h4>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, Innovation City</p>
+                        <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope me-2"></i> info@techrk.com</p>
+                        
+                        <div class="techrk-social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>Our Location</h4>
+                        <p>Visit our headquarters or connect with us online</p>
+                        <div class="techrk-map-container">
+                            <div class="techrk-map-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Interactive Map</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="techrk-footer-divider"></div>
+            
+            <div class="techrk-copyright">
+                <p>© 2025 TechRK Software Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('techrkMainHeader');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Active link highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.techrk-navbar-nav .nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === 'portfolio.html') {
+                    link.classList.add('active');
+                }
+            });
+
+            // Portfolio filtering functionality
+            const filterButtons = document.querySelectorAll('.techrk-filter-btn');
+            const portfolioItems = document.querySelectorAll('.techrk-portfolio-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Modal functionality
+            const modal = document.getElementById('projectModal');
+            const modalClose = document.getElementById('modalClose');
+            const portfolioItemsModal = document.querySelectorAll('.techrk-portfolio-item');
+            
+            portfolioItemsModal.forEach(item => {
+                item.addEventListener('click', function() {
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

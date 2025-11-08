@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TechRK Software Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0066FF;
+            --secondary-color: #00C4B4;
+            --highlight-color: #FFD700;
+            --bg-dark: #0B1120;
+            --bg-light: #F8FAFF;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-color: #E2E8F0;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .techrk-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .techrk-header.scrolled {
+            background-color: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+
+        .techrk-navbar-brand {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--text-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .techrk-navbar-brand span {
+            color: var(--primary-color);
+        }
+
+        .techrk-navbar-nav .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .techrk-navbar-nav .nav-link:hover,
+        .techrk-navbar-nav .nav-link.active {
+            color: var(--highlight-color) !important;
+        }
+
+        .techrk-navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .techrk-navbar-nav .nav-link:hover::after,
+        .techrk-navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Improved Navbar Toggle - Hidden on desktop by default */
+        .techrk-navbar-toggler {
+            border: none;
+            color: var(--text-color);
+            width: 30px;
+            height: 20px;
+            position: relative;
+            padding: 0;
+            background: transparent;
+            display: none; /* Hidden by default */
+        }
+
+        .techrk-navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .techrk-navbar-toggler span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--text-color);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .techrk-navbar-toggler span:nth-child(1) {
+            top: 0px;
+        }
+
+        .techrk-navbar-toggler span:nth-child(2) {
+            top: 8px;
+        }
+
+        .techrk-navbar-toggler span:nth-child(3) {
+            top: 16px;
+        }
+
+        .techrk-navbar-toggler[aria-expanded="true"] span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .techrk-navbar-toggler[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+            left: -30px;
+        }
+
+        .techrk-navbar-toggler[aria-expanded="true"] span:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        /* Hero Section - Contact */
+        .techrk-contact-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.3), rgba(0, 196, 180, 0.3));
+        }
+
+        .techrk-contact-hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 4rem 1rem;
+        }
+
+        .techrk-contact-hero-title {
+            font-family: var(--font-primary);
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .techrk-contact-hero-subtitle {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Animated Gradient Background */
+        .techrk-gradient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+            background: linear-gradient(-45deg, #0066FF, #00C4B4, #0066FF, #00C4B4);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Section Styles */
+        .techrk-section {
+            padding: 6rem 0;
+        }
+
+        .techrk-section-title {
+            font-family: var(--font-primary);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .techrk-section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Contact Form Section */
+        .techrk-contact-section {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .techrk-contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Floating Glass Form */
+        .techrk-contact-form {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .techrk-contact-form:hover {
+            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .techrk-form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .techrk-form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1rem;
+            color: var(--text-color);
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .techrk-form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .techrk-form-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: var(--bg-dark);
+            padding: 0 0.5rem;
+        }
+
+        .techrk-form-control:focus + .techrk-form-label,
+        .techrk-form-control:not(:placeholder-shown) + .techrk-form-label {
+            top: -0.5rem;
+            left: 0.8rem;
+            font-size: 0.8rem;
+            opacity: 1;
+            color: var(--primary-color);
+        }
+
+        .techrk-form-control::placeholder {
+            color: transparent;
+        }
+
+        textarea.techrk-form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .techrk-form-submit {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .techrk-form-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .techrk-form-submit:hover {
+            color: white;
+            box-shadow: 0 0 20px var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .techrk-form-submit:hover::before {
+            opacity: 1;
+        }
+
+        /* Contact Info Section */
+        .techrk-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .techrk-contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .techrk-contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 196, 180, 0.1));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .techrk-contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .techrk-contact-card:hover::before {
+            opacity: 1;
+        }
+
+        .techrk-contact-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: var(--highlight-color);
+            transition: all 0.3s ease;
+        }
+
+        .techrk-contact-card:hover .techrk-contact-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .techrk-contact-title {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+
+        .techrk-contact-detail {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .techrk-social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .techrk-social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .techrk-social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
+            color: white;
+        }
+
+        /* Map Section */
+        .techrk-map-section {
+            padding: 0 0 6rem;
+        }
+
+        .techrk-map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            height: 450px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .techrk-map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 196, 180, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .techrk-map-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%230066FF" stroke-width="0.5"/><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%2300C4B4" stroke-width="0.3"/></svg>');
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .techrk-map-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            z-index: 1;
+        }
+
+        .techrk-map-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        /* Footer Styles */
+        .techrk-footer {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 196, 180, 0.1));
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0 1rem;
+            margin-top: auto;
+        }
+
+        .techrk-footer-section h4 {
+            font-family: var(--font-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--highlight-color);
+        }
+
+        .techrk-footer-section p, .techrk-footer-section a {
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .techrk-footer-section a:hover {
+            color: var(--highlight-color);
+        }
+
+        .techrk-social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .techrk-social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .techrk-social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .techrk-footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), transparent);
+            margin: 2rem 0 1.5rem;
+            box-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+        }
+
+        .techrk-copyright {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 991.98px) {
+            .techrk-navbar-toggler {
+                display: block; /* Show toggle on mobile/tablet */
+            }
+
+            .techrk-navbar-collapse {
+                background-color: rgba(11, 17, 32, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+                border: 1px solid var(--glass-border);
+            }
+
+            .techrk-contact-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .techrk-contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .techrk-contact-hero-title {
+                font-size: 2rem;
+            }
+
+            .techrk-section-title {
+                font-size: 2rem;
+            }
+
+            .techrk-contact-form {
+                padding: 2rem;
+            }
+
+            .techrk-map-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="techrk-header" id="techrkMainHeader">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="techrk-navbar-brand" href="#">
+                    <i class="fas fa-code me-2"></i>Tech<span>RK</span>
+                </a>
+                <!-- Toggle button - hidden on desktop, visible on mobile -->
+                <button class="techrk-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#techrkNavbarNav" aria-controls="techrkNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="collapse navbar-collapse" id="techrkNavbarNav">
+                    <ul class="navbar-nav ms-auto techrk-navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="portfolio.html">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="careers.html">Careers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="techrk-contact-hero">
+            <div class="techrk-gradient-bg"></div>
+            <div class="container">
+                <div class="techrk-contact-hero-content">
+                    <h1 class="techrk-contact-hero-title">Get in Touch With Us</h1>
+                    <p class="techrk-contact-hero-subtitle">Ready to transform your business? Let's discuss how our solutions can drive your success.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form & Info Section -->
+        <section class="techrk-section techrk-contact-section">
+            <div class="container">
+                <h2 class="techrk-section-title">Let's Start a Conversation</h2>
+                <p class="techrk-section-subtitle">Have a project in mind or questions about our services? We'd love to hear from you.</p>
+                
+                <div class="techrk-contact-container">
+                    <!-- Contact Form -->
+                    <div class="techrk-contact-form-container">
+                        <form class="techrk-contact-form">
+                            <div class="techrk-form-group">
+                                <input type="text" class="techrk-form-control" id="contactName" placeholder=" " required>
+                                <label for="contactName" class="techrk-form-label">Full Name</label>
+                            </div>
+                            
+                            <div class="techrk-form-group">
+                                <input type="email" class="techrk-form-control" id="contactEmail" placeholder=" " required>
+                                <label for="contactEmail" class="techrk-form-label">Email Address</label>
+                            </div>
+                            
+                            <div class="techrk-form-group">
+                                <input type="text" class="techrk-form-control" id="contactSubject" placeholder=" " required>
+                                <label for="contactSubject" class="techrk-form-label">Subject</label>
+                            </div>
+                            
+                            <div class="techrk-form-group">
+                                <textarea class="techrk-form-control" id="contactMessage" rows="5" placeholder=" " required></textarea>
+                                <label for="contactMessage" class="techrk-form-label">Your Message</label>
+                            </div>
+                            
+                            <button type="submit" class="techrk-form-submit">Send Message</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="techrk-contact-info">
+                        <div class="techrk-contact-card">
+                            <div class="techrk-contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3 class="techrk-contact-title">Our Office</h3>
+                            <p class="techrk-contact-detail">123 Tech Street</p>
+                            <p class="techrk-contact-detail">Innovation City, IC 10001</p>
+                            <p class="techrk-contact-detail">United States</p>
+                        </div>
+                        
+                        <div class="techrk-contact-card">
+                            <div class="techrk-contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3 class="techrk-contact-title">Email Us</h3>
+                            <p class="techrk-contact-detail">info@techrk.com</p>
+                            <p class="techrk-contact-detail">support@techrk.com</p>
+                            <p class="techrk-contact-detail">careers@techrk.com</p>
+                        </div>
+                        
+                        <div class="techrk-contact-card">
+                            <div class="techrk-contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3 class="techrk-contact-title">Call Us</h3>
+                            <p class="techrk-contact-detail">+1 (555) 123-4567</p>
+                            <p class="techrk-contact-detail">+1 (555) 987-6543</p>
+                            <p class="techrk-contact-detail">Mon - Fri, 9:00 AM - 6:00 PM</p>
+                        </div>
+                        
+                        <div class="techrk-contact-card">
+                            <div class="techrk-contact-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <h3 class="techrk-contact-title">Connect With Us</h3>
+                            <p class="techrk-contact-detail">Follow us on social media for updates and insights</p>
+                            <div class="techrk-social-links">
+                                <a href="#" class="techrk-social-link">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="techrk-social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="techrk-social-link">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="techrk-social-link">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="techrk-map-section">
+            <div class="container">
+                <h2 class="techrk-section-title">Find Us Here</h2>
+                <p class="techrk-section-subtitle">Visit our headquarters or connect with us online</p>
+                
+                <div class="techrk-map-container">
+                    <div class="techrk-map-placeholder">
+                        <i class="fas fa-map-marked-alt techrk-map-icon"></i>
+                        <p class="techrk-map-text">Interactive Map - TechRK Headquarters</p>
+                        <p>123 Tech Street, Innovation City</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="techrk-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>About TechRK</h4>
+                        <p>TechRK Software Solutions is a leading technology company specializing in innovative software development, digital transformation, and IT consulting services.</p>
+                        <p>We help businesses leverage technology to achieve their goals and stay ahead in the digital age.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>Quick Links</h4>
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="services.html">Services</a>
+                        <a href="portfolio.html">Portfolio</a>
+                        <a href="careers.html">Careers</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>Contact Info</h4>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, Innovation City</p>
+                        <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope me-2"></i> info@techrk.com</p>
+                        
+                        <div class="techrk-social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="techrk-footer-section">
+                        <h4>Our Location</h4>
+                        <p>Visit our headquarters or connect with us online</p>
+                        <div class="techrk-map-container" style="height: 150px;">
+                            <div class="techrk-map-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Interactive Map</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="techrk-footer-divider"></div>
+            
+            <div class="techrk-copyright">
+                <p>© 2025 TechRK Software Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('techrkMainHeader');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Active link highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.techrk-navbar-nav .nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === 'contact.html') {
+                    link.classList.add('active');
+                }
+            });
+
+            // Form submission
+            const contactForm = document.querySelector('.techrk-contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simple form validation
+                const requiredFields = this.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'red';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+                
+                if (isValid) {
+                    // In a real application, you would submit the form data to a server
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                    
+                    // Reset floating labels
+                    const labels = this.querySelectorAll('.techrk-form-label');
+                    labels.forEach(label => {
+                        label.style.top = '1rem';
+                        label.style.left = '1rem';
+                        label.style.fontSize = '';
+                        label.style.opacity = '0.7';
+                        label.style.color = '';
+                    });
+                } else {
+                    alert('Please fill in all required fields.');
+                }
+            });
+
+            // Floating label functionality
+            const formControls = document.querySelectorAll('.techrk-form-control');
+            
+            formControls.forEach(control => {
+                control.addEventListener('focus', function() {
+                    const label = this.nextElementSibling;
+                    if (label && label.classList.contains('techrk-form-label')) {
+                        label.style.top = '-0.5rem';
+                        label.style.left = '0.8rem';
+                        label.style.fontSize = '0.8rem';
+                        label.style.opacity = '1';
+                        label.style.color = 'var(--primary-color)';
+                    }
+                });
+                
+                control.addEventListener('blur', function() {
+                    if (!this.value) {
+                        const label = this.nextElementSibling;
+                        if (label && label.classList.contains('techrk-form-label')) {
+                            label.style.top = '1rem';
+                            label.style.left = '1rem';
+                            label.style.fontSize = '';
+                            label.style.opacity = '0.7';
+                            label.style.color = '';
+                        }
+                    }
+                });
+                
+                // Initialize labels for pre-filled values
+                if (control.value) {
+                    const label = control.nextElementSibling;
+                    if (label && label.classList.contains('techrk-form-label')) {
+                        label.style.top = '-0.5rem';
+                        label.style.left = '0.8rem';
+                        label.style.fontSize = '0.8rem';
+                        label.style.opacity = '1';
+                        label.style.color = 'var(--primary-color)';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

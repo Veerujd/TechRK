@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services - TechRK Software Solutions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #0066FF;
-            --secondary-color: #00C4B4;
-            --highlight-color: #FFD700;
-            --bg-dark: #0B1120;
-            --bg-light: #F8FAFF;
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-color: #E2E8F0;
-            --font-primary: 'Poppins', sans-serif;
-            --font-secondary: 'Inter', sans-serif;
+            --primary-color: #2196f3;        /* Blue, as used in card bottom and logo */
+            --secondary-color: #ff9800;      /* Orange, from 'RK' in the logo */
+            --highlight-color: #bdbdbd;      /* Light gray seen in strip/text accents */
+            --bg-light: #f0f0f0;             /* Light gray, card upper background */
+            --card-bg: rgba(220, 238, 255, 0.1);  /* Light blue card background glass effect */
+            --glass-border: rgba(33, 150, 243, 0.2); /* Blueish border, subtle accent */
+            --text-color: #3a3a3a;           /* Deep gray for maximum readability without pure black */
+            --font-primary: 'Century Gothic', Arial, sans-serif;    /* Clean, geometric font from the card */
+            --font-secondary: 'Poppins', Arial, sans-serif;         /* For modern adds, closest to card style */
         }
 
         * {
@@ -29,7 +28,7 @@
 
         body {
             font-family: var(--font-secondary);
-            background-color: var(--bg-dark);
+            background-color: var(--bg-light);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -46,10 +45,11 @@
             z-index: 1000;
             transition: all 0.3s ease;
             padding: 1rem 0;
+            background-color: rgba(240, 240, 240, 0.9);
         }
 
         .techrk-header.scrolled {
-            background-color: rgba(11, 17, 32, 0.95);
+            background-color: rgba(240, 240, 240, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             padding: 0.5rem 0;
@@ -65,7 +65,7 @@
         }
 
         .techrk-navbar-brand span {
-            color: var(--primary-color);
+            color: var(--secondary-color);
         }
 
         .techrk-navbar-nav .nav-link {
@@ -78,7 +78,7 @@
 
         .techrk-navbar-nav .nav-link:hover,
         .techrk-navbar-nav .nav-link.active {
-            color: var(--highlight-color) !important;
+            color: var(--secondary-color) !important;
         }
 
         .techrk-navbar-nav .nav-link::after {
@@ -88,9 +88,8 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             transition: width 0.3s ease;
-            box-shadow: 0 0 10px var(--primary-color);
         }
 
         .techrk-navbar-nav .nav-link:hover::after,
@@ -162,7 +161,7 @@
             position: relative;
             overflow: hidden;
             padding-top: 100px;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.3), rgba(0, 196, 180, 0.3));
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(255, 152, 0, 0.2));
         }
 
         .techrk-services-hero-content {
@@ -176,9 +175,7 @@
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-color);
         }
 
         .techrk-services-hero-subtitle {
@@ -202,7 +199,7 @@
         .techrk-floating-icon {
             position: absolute;
             font-size: 4rem;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(33, 150, 243, 0.2);
             animation: float 6s ease-in-out infinite;
         }
 
@@ -296,7 +293,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 196, 180, 0.1));
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(255, 152, 0, 0.1));
             z-index: -1;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -304,7 +301,7 @@
 
         .techrk-service-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 102, 255, 0.3);
+            box-shadow: 0 15px 30px rgba(33, 150, 243, 0.3);
             border-color: var(--primary-color);
         }
 
@@ -315,9 +312,7 @@
         .techrk-service-icon {
             font-size: 4rem;
             margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-color);
             transition: all 0.4s ease;
         }
 
@@ -331,11 +326,12 @@
             font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
+            color: var(--text-color);
         }
 
         /* Process Timeline Section */
         .techrk-process-section {
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(189, 189, 189, 0.1);
         }
 
         .techrk-process-timeline {
@@ -376,7 +372,7 @@
             border: 2px solid var(--glass-border);
             border-radius: 50%;
             font-size: 2.5rem;
-            color: var(--highlight-color);
+            color: var(--secondary-color);
             transition: all 0.4s ease;
             position: relative;
             z-index: 3;
@@ -384,8 +380,8 @@
 
         .techrk-process-step:hover .techrk-process-icon {
             transform: scale(1.1);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-            border-color: var(--highlight-color);
+            box-shadow: 0 0 25px rgba(255, 152, 0, 0.4);
+            border-color: var(--secondary-color);
         }
 
         .techrk-process-title {
@@ -393,6 +389,7 @@
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
+            color: var(--text-color);
         }
 
         .techrk-process-desc {
@@ -402,7 +399,7 @@
 
         /* CTA Section */
         .techrk-cta-section {
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 196, 180, 0.2));
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(255, 152, 0, 0.2));
             border-radius: 30px;
             padding: 5rem 2rem;
             text-align: center;
@@ -415,6 +412,7 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
+            color: var(--text-color);
         }
 
         .techrk-cta-subtitle {
@@ -445,7 +443,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             z-index: -1;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -462,7 +460,7 @@
 
         /* Footer Styles */
         .techrk-footer {
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 196, 180, 0.1));
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(255, 152, 0, 0.1));
             backdrop-filter: blur(10px);
             border-top: 1px solid var(--glass-border);
             padding: 3rem 0 1rem;
@@ -473,7 +471,7 @@
             font-family: var(--font-primary);
             font-size: 1.3rem;
             margin-bottom: 1.5rem;
-            color: var(--highlight-color);
+            color: var(--secondary-color);
         }
 
         .techrk-footer-section p, .techrk-footer-section a {
@@ -485,7 +483,7 @@
         }
 
         .techrk-footer-section a:hover {
-            color: var(--highlight-color);
+            color: var(--secondary-color);
         }
 
         .techrk-social-icons {
@@ -503,18 +501,19 @@
             background-color: var(--card-bg);
             border-radius: 50%;
             transition: all 0.3s ease;
+            color: var(--text-color);
         }
 
         .techrk-social-icons a:hover {
             background-color: var(--primary-color);
             transform: translateY(-3px);
+            color: white;
         }
 
         .techrk-footer-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), transparent);
             margin: 2rem 0 1.5rem;
-            box-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
         }
 
         .techrk-copyright {
@@ -558,7 +557,7 @@
             }
 
             .techrk-navbar-collapse {
-                background-color: rgba(11, 17, 32, 0.95);
+                background-color: rgba(240, 240, 240, 0.95);
                 backdrop-filter: blur(10px);
                 padding: 1rem;
                 border-radius: 10px;
